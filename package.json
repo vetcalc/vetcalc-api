@@ -1,15 +1,22 @@
 {
-  "name": "rest-api",
+  "name": "vaddb-rest-api",
   "version": "1.0.0",
   "description": "",
   "main": "rest.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "pm2-dev start app.js",
+    "prod": "pm2 start app.js --name vaddb-rest-api",
+    "stop": "pm2 stop vaddb-rest-api",
+    "restart": "pm2 restart vaddb-rest-api",
+    "delete": "pm2 delete vaddb-rest-api"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "mysql": "^2.18.1"
+    "package.json": "^2.0.1",
+    "pg": "^8.9.0"
   }
 }
