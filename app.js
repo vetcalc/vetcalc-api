@@ -1,44 +1,15 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
-import pg from 'pg';
 
-const { Pool } = pg;
 const app = express();
 const port = 3000;
+import drugs from './src/routes/drugs.route.js';
 
-app.listen(port, () => {
-    console.log(`API server running on port ${port}`)
-})
-
-// Database admin credentials
-const pool = new Pool({
-    host: process.env.VADDB_HOST,
-    user: process.env.VADDB_USER,
-    password: process.env.VADDB_PASSWORD,
-    database: process.env.VADDB_DATABASE,
-    port: process.env.VADDB_PORT,
-})
-
-//database.connect();     DATABASE NOT YET IMPLEMENTED
+app.use('/drugs', drugs);
 
 app.get('/', (req, res) => {
-    res.send('Placeholder landing page.');
+    res.send({"message": "You've reached the vaddb rest api"});
 })
 
-// Retrieve all information from drug_combinations table. (skeleton code)
-app.get('/display_drugs', (req, res) => {
-    res.send('Drugs page.');
-    // PLACEHOLDER CODE BELOW
-    pool.query('SELECT * FROM drug_combinations', (error, results) => {
-        if (error) {
-            res.status(500).send({error: 'Failed to retrieve data.'});
-        } else {
-            res.send(results.rows);
-        }
-    })
-})
 
 // Retrieve all drug information pertaining to a specific animal
 app.get('/drugs/:animal_name', (req, res) => {
@@ -121,3 +92,8 @@ app.put('/modify_drug/:id', (req, res) => {
         }
     })
 })
+
+app.listen(port, () => {
+    console.log(`API server running on port ${port}`)
+})
+
