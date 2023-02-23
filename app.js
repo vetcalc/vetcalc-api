@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import pg from 'pg';
 
@@ -11,11 +14,11 @@ app.listen(port, () => {
 
 // Database admin credentials
 const pool = new Pool({
-    host: process.env.VET_APP_DB_HOST,
-    user: process.env.VET_APP_DB_USER,
-    password: process.env.VET_APP_DB_PASSWORD,
-    database: process.env.VET_APP_DB_DATABASE,
-    port: process.env.VET_APP_DB_PORT,
+    host: process.env.VADDB_HOST,
+    user: process.env.VADDB_USER,
+    password: process.env.VADDB_PASSWORD,
+    database: process.env.VADDB_DATABASE,
+    port: process.env.VADDB_PORT,
 })
 
 //database.connect();     DATABASE NOT YET IMPLEMENTED
