@@ -44,7 +44,7 @@ in here
 
 ## `src` folder
 
-The `src` folder holds pretty much everything else.
+The `src` folder holds pretty much everything else..
 
 ### `configs`
 
