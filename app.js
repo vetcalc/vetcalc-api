@@ -13,7 +13,7 @@ import drugs from './src/routes/drugs.route.js';
 import methods from './src/routes/methods.route.js';
 import units from './src/routes/units.route.js';
 
-app.use('*', auth);
+app.use(auth);
 
 app.get('/', (req, res) => {
     res.send({"message": "You've reached the vaddb rest api"});
