@@ -1,6 +1,6 @@
 import * as animals from '../services/animals.service.js';
 
-const get = async (req, res, next) => {
+export const get_all = async (req, res, next) => {
 	try {
 		let data = await animals.get_all();
 		res.json(data);
@@ -9,7 +9,7 @@ const get = async (req, res, next) => {
 	}
 }
 
-const get_one = async (req, res, next) => {
+export const get_one = async (req, res, next) => {
 	try {
 		let data = await animals.get_one(req.params.id);
 		res.json(data);
@@ -18,7 +18,7 @@ const get_one = async (req, res, next) => {
 	}
 }
 
-const add_one = async (req, res, next) => {
+export const add_one = async (req, res, next) => {
 	try {
 		let data = await animals.add_one(req.body);
 		res.json(data);
@@ -27,7 +27,7 @@ const add_one = async (req, res, next) => {
 	}
 }
 
-const delete_one = async (req, res, next) => {
+export const delete_one = async (req, res, next) => {
 	try {
 		let data = await animals.delete_one(req.params.id);
 		res.json(data);
@@ -36,5 +36,11 @@ const delete_one = async (req, res, next) => {
 	}
 }
 	
-
-export { get, get_one, add_one, delete_one};
+export const update_one = async (req, res, next) => {
+	try {
+		let data = await animals.update_one(req.params.id, req.body);
+		res.json(data);
+	} catch (err) {
+		next(err);
+	}
+}
