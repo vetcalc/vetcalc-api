@@ -14,6 +14,9 @@ import drugs from './src/routes/drugs.route.js';
 import methods from './src/routes/methods.route.js';
 import units from './src/routes/units.route.js';
 
+app.use(express.urlencoded({extended: true})); // for application/x-www-form-urlencoded
+app.use(express.json()); // for application/json
+
 app.use(auth);
 
 app.get('/', (req, res) => {
