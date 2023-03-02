@@ -5,7 +5,7 @@ const get = async (req, res, next) => {
 		let data = await animals.get_all();
 		res.json(data);
 	} catch (err) {
-		next(err)
+		next(err);
 	}
 };
 
