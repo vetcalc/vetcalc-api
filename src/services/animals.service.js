@@ -1,9 +1,16 @@
-import getPool from './db.service.js';
+import { query } from './db.service.js';
 
 const get_all = async () => {
-	const pool = getPool();
-	const { rows } = await pool.query('SELECT * FROM animals');
+	const { rows } = await query('SELECT * FROM animals');
 	return rows;
 };
 
-export { get_all };
+const get_one = async (id) => {
+	const { rows }  = await query('SELECT * FROM animals WHERE animal_id = $1', [id]);
+	return rows[0];
+}
+
+export { 
+	get_all,
+	get_one
+};
