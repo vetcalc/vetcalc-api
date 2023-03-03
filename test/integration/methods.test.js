@@ -16,7 +16,7 @@ describe("/methods", () => {
 
     test("unauthenticated POST /methods", async () => {
 	const response = await request(app)
-	    .post("/methods/1")
+	    .post("/methods")
 	    .set("Content-Type", "application/json");
 	expect(response.status).toEqual(511);
     });

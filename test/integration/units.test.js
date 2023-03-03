@@ -16,7 +16,7 @@ describe("/units", () => {
 
     test("unauthenticated POST /units", async () => {
 	const response = await request(app)
-	    .post("/units/1")
+	    .post("/units")
 	    .set("Content-Type", "application/json");
 	expect(response.status).toEqual(511);
     });
