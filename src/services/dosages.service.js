@@ -13,7 +13,7 @@ export const get_one = async (id) => {
 export const add_one = async (body) => {
 	const inputs = parse_dosage_data_from_body(body);
 	const { rows }  = await query('INSERT INTO \
-		dosages(name) \
+		dosages(animal_id, drug_id, dose_low, dose_high, dose_unit_id, notes) \
 		VALUES ($1, $2, $3, $4, $5, $6) \
 		RETURNING dosage_id', inputs);
 	return rows[0];
