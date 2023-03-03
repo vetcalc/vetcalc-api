@@ -27,9 +27,7 @@ export const delete_one = async (id) => {
 
 export const update_one = async (id, body) => {
 	let inputs = parse_animal_data_from_body(body);
-	console.log(inputs);
 	inputs.push(id);
-	console.log(inputs);
 	const { rows }  = await query('UPDATE animals \
 		SET name = $1, \
 			temperature_low = $2, \
