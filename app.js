@@ -1,8 +1,5 @@
 import express from 'express';
 
-const app = express();
-const port = 3000;
-
 import auth from './src/middlewares/auth.middleware.js';
 import error from './src/middlewares/general_error.middleware.js';
 
@@ -13,6 +10,8 @@ import dosages from './src/routes/dosages.route.js';
 import drugs from './src/routes/drugs.route.js';
 import methods from './src/routes/methods.route.js';
 import units from './src/routes/units.route.js';
+
+const app = express();
 
 app.use(express.urlencoded({extended: true})); // for application/x-www-form-urlencoded
 app.use(express.json()); // for application/json
@@ -33,7 +32,6 @@ app.use('/units', units);
 
 app.use(error);
 
-app.listen(port, () => {
-    console.log(`API server running on port ${port}`)
-})
+export default app;
+
 
