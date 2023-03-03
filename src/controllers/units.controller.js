@@ -1,4 +1,4 @@
-import * as units from '../services/units.service.js';
+import * as units from 'services/units.service.js';
 
 const get = async (req, res) => {
 	try {

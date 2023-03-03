@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import * as drugs from '../controllers/drugs.controller.js';
+import * as drugs from 'controllers/drugs.controller.js';
 
 // router specific middleware can go here
 // such as validation for inputs

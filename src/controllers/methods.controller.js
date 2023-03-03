@@ -1,4 +1,4 @@
-import * as methods from '../services/methods.service.js';
+import * as methods from 'services/methods.service.js';
 
 const get = async (req, res) => {
 	try {

@@ -1,4 +1,4 @@
-import * as animals from '../services/animals.service.js';
+import * as animals from 'services/animals.service.js';
 
 export const get_all = async (req, res, next) => {
 	try {

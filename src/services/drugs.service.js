@@ -1,4 +1,4 @@
-import { query } from './db.service.js';
+import { query } from 'services/db.service.js';
 
 export const get_all = async () => {
 	const { rows } = await query('SELECT * FROM drugs');

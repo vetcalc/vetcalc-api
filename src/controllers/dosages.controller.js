@@ -1,4 +1,4 @@
-import * as dosages from '../services/dosages.service.js';
+import * as dosages from 'services/dosages.service.js';
 
 const get = async (req, res) => {
 	try {

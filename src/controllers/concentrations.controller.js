@@ -1,4 +1,4 @@
-import * as concentrations from '../services/concentrations.service.js';
+import * as concentrations from 'services/concentrations.service.js';
 
 const get = async (req, res) => {
 	try {

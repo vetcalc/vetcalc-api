@@ -1,4 +1,4 @@
-import auth from '../configs/auth.config.js';
+import auth from 'configs/auth.config.js';
 
  const check_auth = (req, res, next) => {
     // Anybody can read the database without restriction

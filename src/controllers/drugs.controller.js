@@ -1,4 +1,4 @@
-import * as drugs from '../services/drugs.service.js';
+import * as drugs from 'services/drugs.service.js';
 
 export const get_all = async (req, res, next) => {
 	try {

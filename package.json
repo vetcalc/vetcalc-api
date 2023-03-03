@@ -1,14 +1,14 @@
 {
   "name": "vaddb-rest-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "rest.js",
-  "type": "module",
+  "description": "A REST API to interface with the vet app drug database",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "pm2-dev start app.js",
-    "prod": "pm2 start app.js --name vaddb-rest-api",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "start": "node index.js",
+    "dev": "pm2-dev start index.js",
+    "prod": "pm2 start index.js --name vaddb-rest-api",
     "stop": "pm2 stop vaddb-rest-api",
     "restart": "pm2 restart vaddb-rest-api",
     "delete": "pm2 delete vaddb-rest-api"
@@ -20,5 +20,12 @@
     "express": "^4.18.2",
     "pg": "^8.9.0",
     "pkg.json": "^2.0.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/register": "^7.21.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "jest": "^29.4.3"
   }
 }

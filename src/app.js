@@ -1,15 +1,15 @@
 import express from 'express';
 
-import auth from './src/middlewares/auth.middleware.js';
-import error from './src/middlewares/general_error.middleware.js';
+import auth from 'middlewares/auth.middleware.js';
+import error from 'middlewares/general_error.middleware.js';
 
-import animals from './src/routes/animals.route.js';
-import concentrations from './src/routes/concentrations.route.js';
-import delivery from './src/routes/delivery.route.js';
-import dosages from './src/routes/dosages.route.js';
-import drugs from './src/routes/drugs.route.js';
-import methods from './src/routes/methods.route.js';
-import units from './src/routes/units.route.js';
+import animals from 'routes/animals.route.js';
+import concentrations from 'routes/concentrations.route.js';
+import delivery from 'routes/delivery.route.js';
+import dosages from 'routes/dosages.route.js';
+import drugs from 'routes/drugs.route.js';
+import methods from 'routes/methods.route.js';
+import units from 'routes/units.route.js';
 
 const app = express();
 
@@ -33,5 +33,4 @@ app.use('/units', units);
 app.use(error);
 
 export default app;
-
 

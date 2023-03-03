@@ -1,4 +1,4 @@
-import * as delivery from '../services/delivery.service.js';
+import * as delivery from 'services/delivery.service.js';
 
 const get = async (req, res) => {
 	try {
