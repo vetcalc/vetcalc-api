@@ -59,7 +59,7 @@ const parse_dosage_data_from_body = (body) => {
 }
 
 const parse_dosage_query_params = (query_params) => {
-	const animal_id = query_params["method_id"];
+	const animal_id = query_params["animal_id"];
 	const drug_id = query_params["drug_id"];
 	return [animal_id, drug_id];
 }
