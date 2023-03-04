@@ -77,7 +77,6 @@ import * as dosages from 'controllers/dosages.controller.js';
  *         schema:
  *           type: integer
  *           format: int64
-
  *     responses:
  *       '200':
  *         description: OK
