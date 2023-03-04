@@ -1,0 +1,301 @@
+openapi: 3.0.0
+info:
+  title: Vaddb Rest Api
+  description: |-
+    This is the documentation for rest api of the veterinarian application drug database.
+    It describes the available routes and request method available to a consumer.
+
+    Some useful links:
+    - [The vet app admin panel](https://master.d2pshuo9e8h6ec.amplifyapp.com/)
+    - [Get the Android mobile app (*eventually*)]()
+    - [Get the iOS mobile app (*eventually*)]()
+  license:
+    name: 0BSD
+    url: https://opensource.org/license/0bsd/ 
+  version: 1.0.0
+servers:
+  - url: https://vaddb.liamgombart.com
+tags:
+  - name: animal
+    description: All about Animals
+  - name: concentration
+    description: All about Concentrations
+  - name: delivery
+    description: All about Delivery 
+  - name: dosage
+    description: All about Dosages
+  - name: drug
+    description: All about Drugs 
+  - name: method
+    description: All about Methods 
+  - name: unit
+    description: All about Units 
+paths:
+  /animals:
+    get:
+      tags:
+        - animal
+      summary: Get all existing animals
+      description: Get a list of all the animals in the database
+      operationId: getAnimals
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Animal'          
+        '400':
+          description: Problem with request
+    post:
+      tags:
+        - animal
+      summary: Add an animal
+      description: Add an animal to the database to be used in dosages
+      operationId: postAnimals
+      requestBody:
+        $ref: '#components/requestBodies/Animal'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  animal_id:
+                    type: integer
+                    format: int64
+        '400':
+          description: Problem with request
+        '511':
+          description: Need authentication
+      security:
+        - api_key: []
+  /animals/{id}:
+    get:
+      tags:
+        - animal
+      summary: Get a single animal
+      description: get one animal by its ID
+      operationId: getAnimal
+      parameters:
+        - name: id
+          in: path
+          description: animal id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Animal'
+        '400':
+          description: Problem with request
+    put:
+      tags:
+        - animal
+      summary: Update a single animal
+      description: update one animal by its ID
+      operationId: updateAnimal
+      parameters:
+        - name: id
+          in: path
+          description: animal id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        $ref: '#components/requestBodies/Animal'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  animal_id:
+                    type: integer
+                    format: int64
+        '400':
+          description: Problem with request
+        '511':
+          description: Need authentication
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - animal
+      summary: Delete a single animal
+      description: delete one animal by its ID
+      operationId: deleteAnimal
+      parameters:
+        - name: id
+          in: path
+          description: animal id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  animal_id:
+                    type: integer
+                    format: int64
+        '400':
+          description: Problem with request
+        '511':
+          description: Need authentication
+      security:
+        - api_key: []
+
+components:
+  schemas:
+    Animal:
+      type: object
+      required: [name, temperature_low, temperature_high, heart_rate_low, heart_rate_high, respiratory_rate_low, respiratory_rate_high]
+      properties:
+        animal_id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Slug
+        temperature_low:
+          type: number
+          format: float
+          example: 100.0
+        temperature_high:
+          type: number
+          format: float
+          example: 102.5
+        heart_rate_low:
+          type: number
+          format: float
+          example: 60
+        heart_rate_high:
+          type: number
+          format: float
+          example: 120
+        respiratory_rate_low:
+          type: number
+          format: float
+          example: 18
+        respiratory_rate_high:
+          type: number
+          format: float
+          example: 24
+    Concentration:
+      type: object
+      properties:
+        concentration_id:
+          type: integer
+          format: int64
+          example: 21
+        value:
+          type: number
+          format: float
+          example: 10
+        unit_id:
+          type: integer
+          format: int64
+        dosage_id:
+          type: integer
+          format: int64
+    Delivery:
+      type: object
+      properties:
+        dosage_id:
+          type: integer
+          format: int64
+        method_id:
+          type: integer
+          format: int64
+    Dosage:
+      type: object
+      properties:
+        dosage_id:
+          type: integer
+          format: int64
+          example: 1
+        animal_id:
+          type: integer
+          format: int64
+          example: 1
+        drug_id:
+          type: integer
+          format: int64
+          example: 1
+        dosage_low:
+          type: number
+          format: float
+          example: 0.02
+        dosage_high:
+          type: number
+          format: float
+          example: 0.05
+        dosage_unit_id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Don't give to a slug
+    Drug:
+      type: object
+      properties:
+        drug_id:
+          type: integer
+          format: int64
+          example: 13
+        name:
+          type: string
+          example: Acepromazine
+    Method:
+      type: object
+      properties:
+        method_id:
+          type: integer
+          format: int64
+          example: 2
+        name:
+          type: string
+          example: IM
+    Unit:
+      type: object
+      properties:
+        unit_id:
+          type: integer
+          format: int64
+          example: 2
+        name:
+          type: string
+          example: mg/kg
+  requestBodies:
+    Animal:
+      description: Animal object that will be added to database
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Animal'
+      required: true
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authentication
+      in: header
