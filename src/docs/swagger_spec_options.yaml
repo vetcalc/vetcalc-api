@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: Vaddb Rest Api
+  description: |-
+    This is the documentation for rest api of the veterinarian application drug database.
+    It describes the available routes and request method available to a consumer.
+
+    Some useful links:
+    - [The vet app admin panel](https://master.d2pshuo9e8h6ec.amplifyapp.com/)
+    - [Get the Android mobile app (*eventually*)]()
+    - [Get the iOS mobile app (*eventually*)]()
+  license:
+    name: 0BSD
+    url: https://opensource.org/license/0bsd/ 
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: local version
+  - url: https://vaddb.liamgombart.com
+    description: Deployed server instance
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authentication
+      in: header

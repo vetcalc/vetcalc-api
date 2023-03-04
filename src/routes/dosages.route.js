@@ -2,13 +2,212 @@ import express from 'express';
 const router = express.Router();
 import * as dosages from 'controllers/dosages.controller.js';
 
-// router specific middleware can go here
-// such as validation for inputs
+/** @swagger
+ * tags:
+ *   name: dosages
+ *   description: All about dosages
+ */
 
+/** @swagger
+ * components:
+ *   schemas:
+ *     dosage:
+ *       type: object
+ *       required: [animal_id, drug_id, dosage_low, dosage_high, dosage_unit_id, notes]
+ *       properties:
+ *         dosage_id:
+ *           type: integer
+ *           format: int64
+ *           example: 10
+ *         animal_id:
+ *           type: integer
+ *           format: int64
+ *           example: 1
+ *         drug_id:
+ *           type: integer
+ *           format: int64
+ *           example: 1
+ *         dosage_low:
+ *           type: number
+ *           format: float
+ *           example: 0.02
+ *         dosage_high:
+ *           type: number
+ *           format: float
+ *           example: 0.05
+ *         dosage_unit_id:
+ *           type: integer
+ *           format: int64
+ *           example: 1
+ *         notes:
+ *           type: string
+ *           example: Don't give to a slug
+ */
+    
+/** @swagger
+ * components:
+ *   requestBodies:
+ *     dosage:
+ *       description: dosage object that will be added to database
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/dosage'
+ *       required: true
+ */    
+
+
+/** @swagger
+ * /dosages:
+ *   get:
+ *     tags: [dosages]
+ *     summary: Get all existing dosages
+ *     description: Get a list of all the dosages in the database
+ *     operationId: getdosages
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *              schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/dosage'          
+ *       '400':
+ *         description: Problem with request
+ */
 router.get('/', dosages.get_all);
-router.get('/:id', dosages.get_one);
+
+
+/** @swagger
+ * /dosages:
+ *   post:
+ *     tags: [dosages]
+ *     summary: Add an dosage
+ *     description: Add an dosage to the database to be used in dosages
+ *     operationId: postdosage
+ *     requestBody:
+ *       $ref: '#components/requestBodies/dosage'
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 dosage_id:
+ *                   type: integer
+ *                   format: int64
+ *       '400':
+ *         description: Problem with request
+ *       '511':
+ *         description: Need authentication
+ *     security:
+ *       - api_key: []
+ */
 router.post('/', dosages.add_one);
+
+
+/** @swagger
+ * /dosages/{id}:
+ *   get:
+ *     tags: [dosages]
+ *     summary: Get a single dosage
+ *     description: get one dosage by its ID
+ *     operationId: getdosage
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: dosage id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/dosage'
+ *       '400':
+ *         description: Problem with request
+ */
+router.get('/:id', dosages.get_one);
+
+
+/** @swagger
+ * /dosages/{id}:
+ *   delete:
+ *     tags: [dosages]
+ *     summary: Delete a single dosage
+ *     description: delete one dosage by its ID
+ *     operationId: deletedosage
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: dosage id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 dosage_id:
+ *                   type: integer
+ *                   format: int64
+ *       '400':
+ *         description: Problem with request
+ *       '511':
+ *         description: Need authentication
+ *     security:
+ *       - api_key: []
+ */
 router.delete('/:id', dosages.delete_one);
+
+
+/** @swagger
+ * /dosages/{id}:
+ *   put:
+ *     tags: [dosages]
+ *     summary: Update a single dosage
+ *     description: update one dosage by its ID
+ *     operationId: updatedosage
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: dosage id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *     requestBody:
+ *       $ref: '#components/requestBodies/dosage'
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 dosage_id:
+ *                   type: integer
+ *                   format: int64
+ *       '400':
+ *         description: Problem with request
+ *       '511':
+ *         description: Need authentication
+ *     security:
+ *       - api_key: []
+ */
 router.put('/:id', dosages.update_one);
 
 
