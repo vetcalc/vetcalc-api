@@ -1,8 +1,8 @@
 import * as concentrations from 'services/concentrations.service.js';
 
-export const get_all = async (req, res, next) => {
+export const get_some = async (req, res, next) => {
 	try {
-		let data = await concentrations.get_all();
+		let data = await concentrations.get_some(req.query);
 		res.json(data);
 	} catch (err) {
 		next(err);

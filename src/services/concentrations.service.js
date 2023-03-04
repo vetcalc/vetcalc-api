@@ -1,8 +1,16 @@
 import { query } from 'services/db.service.js';
 
-export const get_all = async () => {
-	const { rows } = await query('SELECT * FROM concentrations');
-	return rows;
+export const get_some = async (query_params) => {
+	const search_params = parse_concentration_query_params(query_params);
+	
+	if ( search_params[0] !== undefined ) {
+		const { rows } = await query('SELECT * FROM concentrations WHERE dosage_id = $1', [search_params[0]]);
+		return rows;
+	} else {
+		const { rows } = await query('SELECT * FROM concentrations');
+		return rows;
+	}
+
 };
 
 export const get_one = async (id) => {
@@ -40,4 +48,10 @@ export const update_one = async (id, body) => {
 const parse_concentration_data_from_body = (body) => {
 	return [body.value, body.unit_id, body.dosage_id];
 }
+
+const parse_concentration_query_params = (query_params) => {
+	const dosage_id = query_params["dosage_id"];
+	return [dosage_id];
+}
+
 

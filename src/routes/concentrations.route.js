@@ -48,9 +48,16 @@ import * as concentrations from 'controllers/concentrations.controller.js';
  * /concentrations:
  *   get:
  *     tags: [concentrations]
- *     summary: Get all existing concentrations
- *     description: Get a list of all the concentrations in the database
+ *     summary: Filter for some concentrations
+ *     description: Get all concentrations by default, include a dosage id to filter concentrations by that 
  *     operationId: getconcentrations
+ *     parameters:
+ *       - name: dosage_id
+ *         in: query
+ *         description: dosage_id to filter by
+ *         schema:
+ *           type: integer
+ *           format: int64
  *     responses:
  *       '200':
  *         description: OK
@@ -63,7 +70,7 @@ import * as concentrations from 'controllers/concentrations.controller.js';
  *       '400':
  *         description: Problem with request
  */
-router.get('/', concentrations.get_all);
+router.get('/', concentrations.get_some);
 
 
 /** @swagger
