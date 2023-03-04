@@ -1,8 +1,23 @@
 import { query } from 'services/db.service.js';
 
-export const get_all = async () => {
-	const { rows } = await query('SELECT * FROM dosages');
-	return rows;
+export const get_some = async (query_params) => {
+	const search_params = parse_dosage_query_params(query_params);
+	
+	if ( search_params[0] !== undefined && search_params[1] === undefined ) {
+		const { rows } = await query('SELECT * FROM dosages WHERE animal_id = $1', [search_params[0]]);
+		return rows;
+	
+	} else if ( search_params[0] === undefined && search_params[1] !== undefined ) {
+		const { rows } = await query('SELECT * FROM dosages WHERE drug_id = $1', [search_params[1]]);
+		return rows;
+	
+	} else if ( search_params[0] !== undefined && search_params[1] !== undefined ) {
+		const { rows } = await query('SELECT * FROM dosages WHERE animal_id = $1 AND drug_id = $2', search_params);
+		return rows;
+	} else {
+		const { rows } = await query('SELECT * FROM dosages');
+		return rows;
+	}
 };
 
 export const get_one = async (id) => {
@@ -41,5 +56,11 @@ export const update_one = async (id, body) => {
 
 const parse_dosage_data_from_body = (body) => {
 	return [body.animal_id, body.drug_id, body.dose_low, body.dose_high, body.dose_unit_id, body.notes];
+}
+
+const parse_dosage_query_params = (query_params) => {
+	const animal_id = query_params["method_id"];
+	const drug_id = query_params["drug_id"];
+	return [animal_id, drug_id];
 }
 

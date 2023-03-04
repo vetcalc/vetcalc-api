@@ -61,9 +61,23 @@ import * as dosages from 'controllers/dosages.controller.js';
  * /dosages:
  *   get:
  *     tags: [dosages]
- *     summary: Get all existing dosages
- *     description: Get a list of all the dosages in the database
+ *     summary: Filter for one or more dosages
+ *     description: Filter dosages by animal_id, drug_id, or get all of them by default 
  *     operationId: getdosages
+ *     parameters:
+ *       - name: animal_id
+ *         in: query
+ *         description: animal_id to filter by
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *       - name: drug_id
+ *         in: query
+ *         description: method_id to filter by
+ *         schema:
+ *           type: integer
+ *           format: int64
+
  *     responses:
  *       '200':
  *         description: OK
@@ -76,7 +90,7 @@ import * as dosages from 'controllers/dosages.controller.js';
  *       '400':
  *         description: Problem with request
  */
-router.get('/', dosages.get_all);
+router.get('/', dosages.get_some);
 
 
 /** @swagger
