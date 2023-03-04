@@ -54,7 +54,7 @@ paths:
         - animal
       summary: Add an animal
       description: Add an animal to the database to be used in dosages
-      operationId: postAnimals
+      operationId: postAnimal
       requestBody:
         $ref: '#components/requestBodies/Animal'
       responses:
@@ -162,7 +162,137 @@ paths:
           description: Need authentication
       security:
         - api_key: []
-
+  /concentrations:
+    get:
+      tags:
+        - concentration
+      summary: Get all existing concentrations
+      description: Get a list of all the concentrations in the database
+      operationId: getConcentrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Concentration'          
+        '400':
+          description: Problem with request
+    post:
+      tags:
+        - concentration
+      summary: Add a concentration
+      description: Add a concentration to the database to be used in dosages
+      operationId: postConcentration
+      requestBody:
+        $ref: '#components/requestBodies/Animal'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  concentration_id:
+                    type: integer
+                    format: int64
+        '400':
+          description: Problem with request
+        '511':
+          description: Need authentication
+      security:
+        - api_key: []
+  /concentrations/{id}:
+    get:
+      tags:
+        - concentration
+      summary: Get a single concentration
+      description: get one concentration by its ID
+      operationId: getConcentration
+      parameters:
+        - name: id
+          in: path
+          description: concentration id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Concentration'
+        '400':
+          description: Problem with request
+    put:
+      tags:
+        - concentration
+      summary: Update a single concentration
+      description: update one concentration by its ID
+      operationId: updateConcentration
+      parameters:
+        - name: id
+          in: path
+          description: concentration id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        $ref: '#components/requestBodies/Concentration'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  concentration_id:
+                    type: integer
+                    format: int64
+        '400':
+          description: Problem with request
+        '511':
+          description: Need authentication
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - concentration
+      summary: Delete a single concentration
+      description: delete one concentration by its ID
+      operationId: deleteConcentration
+      parameters:
+        - name: id
+          in: path
+          description: concentration id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  concentration_id:
+                    type: integer
+                    format: int64
+        '400':
+          description: Problem with request
+        '511':
+          description: Need authentication
+      security:
+        - api_key: []
 components:
   schemas:
     Animal:
@@ -202,6 +332,7 @@ components:
           example: 24
     Concentration:
       type: object
+      required: [value, unit_id, dosage_id]
       properties:
         concentration_id:
           type: integer
