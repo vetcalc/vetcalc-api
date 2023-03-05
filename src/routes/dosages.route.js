@@ -73,7 +73,7 @@ import * as dosages from 'controllers/dosages.controller.js';
  *           format: int64
  *       - name: drug_id
  *         in: query
- *         description: method_id to filter by
+ *         description: drug_id to filter by
  *         schema:
  *           type: integer
  *           format: int64
