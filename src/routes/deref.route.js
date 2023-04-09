@@ -47,4 +47,30 @@ import * as deref from 'controllers/deref.controller.js';
  */
 router.get('/dosages', deref.get_dosages);
 
+/** @swagger
+ * /deref/concentrations:
+ *   get:
+ *     tags: [deref]
+ *     summary: Get concentrations dereferenced
+ *     description: an array of concentration objects with its children dereferenced
+ *     operationId: getDerefConcentrations
+ *     parameters:
+ *       - name: concentration_id
+ *         in: query
+ *         description: concentration_id to filter by
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *              schema:
+ *               type: array
+ *       '400':
+ *         description: Problem with request
+ */
+router.get('/concentrations', deref.get_concentrations);
+
 export default router ;

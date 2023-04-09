@@ -114,3 +114,35 @@ const deref_dosage = async (dosage) => {
 
 	return dosage;
 }
+
+export const get_concentrations = async (query_params) => {
+	const { concentration_id } = query_params;
+
+	let response = undefined; 
+	if (concentration_id) {
+		response = await query('SELECT * FROM concentrations WHERE concentration_id = $1', [concentration_id]);
+	}
+	else {
+		response = await query('SELECT * FROM concentrations');
+	}
+
+	const concentrations = [];
+	for (const concentration of response["rows"]) {
+		const new_concentration = await deref_concentration(concentration);
+		concentrations.push(new_concentration);
+	}
+
+	return concentrations;
+
+};
+
+const deref_concentration = async (concentration) => {
+
+	// deref unit
+	const unit_response = await query('select * from units where unit_id = $1', [ concentration["unit_id"] ]);
+	const unit = unit_response["rows"][0];
+	delete concentration.unit_id;
+	concentration["unit"] = unit;
+	
+	return concentration;
+}
