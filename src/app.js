@@ -11,6 +11,7 @@ import dosages from 'routes/dosages.route.js';
 import drugs from 'routes/drugs.route.js';
 import methods from 'routes/methods.route.js';
 import units from 'routes/units.route.js';
+import deref from 'routes/deref.route.js';
 
 import swagger from 'docs/swagger.route.js';
 
@@ -29,6 +30,7 @@ app.use('/dosages', dosages);
 app.use('/drugs', drugs);
 app.use('/methods', methods);
 app.use('/units', units);
+app.use('/deref', deref);
 
 app.use('/api-docs', swagger);
 
