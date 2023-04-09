@@ -1,63 +1,72 @@
 import { query } from 'services/db.service.js';
 
 export const get_dosages = async (query_params) => {
-	const { dosage_id, animal_id, drug_id } = query_params;
+	const filters = gather_filters(query_params);
 
-	let response = undefined;
-	const  my_case = calculate_dosage_filter_case(query_params);
-	switch (my_case) {
-		case 0:
-			response = await query('SELECT * FROM dosages');
-			break;
-		case 1:
-			response = await query('SELECT * FROM dosages WHERE drug_id = $1', [drug_id]);
-			break;
-		case 2:
-			response = await query('SELECT * FROM dosages WHERE animal_id = $1', [animal_id]);
-			break;
-		case 3:
-			response = await query('SELECT * FROM dosages WHERE animal_id = $1 AND drug_id = $2', [animal_id, drug_id]);
-			break;
-		case 4:
-			response = await query('SELECT * FROM dosages WHERE dosage_id = $1', [dosage_id]);
-			break;
-		case 5:
-			response = await query('SELECT * FROM dosages WHERE dosage_id = $1 AND drug_id = $2', [dosage_id, drug_id]);
-			break;
-		case 6:
-			response = await query('SELECT * FROM dosages WHERE dosage_id = $1 AND animal_id = $2', [dosage_id, animal_id]);
-			break;
-		case 7:
-			response = await query('SELECT * FROM dosages WHERE dosage_id = $1 AND animal_id = $2 AND drug_id = $3', [dosage_id, animal_id, drug_id]);
-			break;
+	let sql_statement = 'SELECT * FROM dosages';
+	const sql_statement_values = [];
+
+	// create the sql statement from the query params
+	if (filters.length == 0) {
+		// do nothing
+	}
+	else {
+		sql_statement += ' WHERE';
+
+		let first_filter_added = false;
+		let current_index = 1;
+
+		for (const filter of filters) {
+			if (first_filter_added) {
+				sql_statement += ` AND ${filter.name} = \$${current_index}`
+			}
+			else {
+				sql_statement += ` ${filter.name} = \$${current_index}`
+				first_filter_added = true;
+			}
+				
+			sql_statement_values.push(filter.value);
+			current_index++;
+		}
 	}
 
+	const response = await query(sql_statement, sql_statement_values);
 
+	// perform the dereferencing after deciding what dosages need processing
 	const dosages = [];
 	for (const dosage of response["rows"]) {
 		const new_dosage = await deref_dosage(dosage);
 		dosages.push(new_dosage);
 	}
+
 	return dosages;
 
 };
 
-const calculate_dosage_filter_case = (filters) => {
-	const { dosage_id, animal_id, drug_id } = filters;
-
-	let filter_case = 0;
+const gather_filters = (params) => {
+	const { dosage_id, animal_id, drug_id } = params;
+	const filters = [];
 
 	if (dosage_id) {
-		filter_case += 4;
+		filters.push({
+			"name": "dosage_id",
+			"value": dosage_id,
+		})
 	}
 	if (animal_id) {
-		filter_case += 2;
+		filters.push({
+			"name": "animal_id",
+			"value": animal_id,
+		})
 	}
 	if (drug_id) {
-		filter_case += 1;
+		filters.push({
+			"name": "drug_id",
+			"value": drug_id,
+		})
 	}
 
-	return filter_case
+	return filters;
 }
 
 const deref_dosage = async (dosage) => {
