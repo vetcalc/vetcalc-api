@@ -13,7 +13,7 @@ import * as dosages from 'controllers/dosages.controller.js';
  *   schemas:
  *     dosage:
  *       type: object
- *       required: [animal_id, drug_id, dosage_low, dosage_high, dosage_unit_id, notes]
+ *       required: [animal_id, drug_id, dose_low, dose_high, dose_unit_id, notes]
  *       properties:
  *         dosage_id:
  *           type: integer
@@ -27,15 +27,15 @@ import * as dosages from 'controllers/dosages.controller.js';
  *           type: integer
  *           format: int64
  *           example: 1
- *         dosage_low:
+ *         dose_low:
  *           type: number
  *           format: float
  *           example: 0.02
- *         dosage_high:
+ *         dose_high:
  *           type: number
  *           format: float
  *           example: 0.05
- *         dosage_unit_id:
+ *         dose_unit_id:
  *           type: integer
  *           format: int64
  *           example: 1
