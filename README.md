@@ -1,13 +1,13 @@
-# What
+# VetCalc API
 
-This is some code for running a Express server for handling a REST API
-for the veterinarian app drug database (vaddb).
+This is some code for running an Express server for handling a OpenAPI 
+requests to the VetCalc Database (vcdb).
 
 # How
 
 ## Install
 
-Install npm however you like. Then run `npm install`. To install from 
+Install npm however you like. Then run `npm ci`. To install from 
 `package.json`.
 
 For most of the of script found in the `package.json` scripts section, you will
@@ -28,9 +28,9 @@ There are some other scripts, but these are the important ones.
 
 ## Config
 
-Included is the `example.ini` file. This stores configuration for the app.
+Included is the `example.env` file. This stores configuration for the app.
 The app actually looks at the `.env` file, but this should not be included in
-version control, so `example.ini` is given for reference.
+version control, so `example.env` is given for reference.
 
 # App Structure
 
